@@ -4,13 +4,35 @@ import { useState } from "react";
 import { styles } from "../config/styles";
 
 export default function RegisterScreen({navigation}){
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
-    const [repetirSenha, setRepetirSenha] = useState();
-    const [cidade, setCidade] = useState();
-    const [estado, setEstado] = useState();
-    const [CEP, setCEP] = useState();
-    const [logradouro, setLogradouro] = useState();
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [repetirSenha, setRepetirSenha] = useState("");
+    const [cidade, setCidade] = useState("");
+    const [estado, setEstado] = useState("");
+    const [CEP, setCEP] = useState("");
+    const [logradouro, setLogradouro] = useState("");
+    const [erro, setErro] = useState("");
+
+    function realizaRegistro(){
+      if(){
+
+      }else{
+        
+      }
+    }
+
+    function buscaCEP(){
+      let cepLimpo = CEP.replace("-", "").trim();
+      fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
+      .then((res) => res.json())
+      .then((dados) => {
+        console.log(dados);
+        setLogradouro(dados.logradouro);
+        setCidade(dados.localidade);
+        setEstado(dados.uf)
+      })
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.container}>
@@ -34,32 +56,48 @@ export default function RegisterScreen({navigation}){
               onChangeText={setRepetirSenha}
               value={repetirSenha} secureTextEntry
             />
+            <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "sapce-between",
+            }}>
             <Text>Cidade:</Text>
             <TextInput
               placeholder="Digite sua cidade"
               onChangeText={setCidade}
               value={cidade} 
+              style={{
+                ...styles.input,
+                width: "70%"
+              }}
             />
             <Text>Estado:</Text>
             <TextInput
               placeholder="Digite seu Estado"
               onChangeText={setEstado}
               value={estado} 
+              style={{
+                ...styles.input,
+                widht: "30%"
+              }}
             />
             <Text>CEP:</Text>
             <TextInput
               placeholder="Digite seu CEP"
               onChangeText={setCEP}
               value={CEP} 
+              onBlur={buscaCEP}
             />
+            </View>
             <Text>Logradouro</Text>
             <TextInput
               placeholder="Digite seu Logradouro"
               onChangeText={setLogradouro}
               value={logradouro} 
             />
-             <Button>
+             <Button onPress={realizaRegistro}>
                 Registrar
+
             </Button>
             </View>
         </View>
