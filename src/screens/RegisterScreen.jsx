@@ -14,10 +14,10 @@ export default function RegisterScreen({navigation}){
     const [erro, setErro] = useState("");
 
     function realizaRegistro(){
-      if(){
-
+      if(cidade || email || senha || repetirSenha || CEP != "" && senha == repetirSenha){
+        alert("Dados Enviados")
       }else{
-        
+        alert("Preencha todos os campos corretamente")
       }
     }
 
@@ -42,19 +42,21 @@ export default function RegisterScreen({navigation}){
               placeholder="Digite seu e-mail"
               onChangeText={setEmail}
               value={email}
-            
+              style={styles.input}
             />
             <Text>Senha:</Text>
             <TextInput
               placeholder="Digite sua senha"
               onChangeText={setSenha}
               value={senha} secureTextEntry
+              style={styles.input}
             />
             <Text>Confirma Senha:</Text>
             <TextInput
               placeholder="Digite sua senha"
               onChangeText={setRepetirSenha}
               value={repetirSenha} secureTextEntry
+              style={styles.input}
             />
             <View
             style={{
@@ -87,6 +89,7 @@ export default function RegisterScreen({navigation}){
               onChangeText={setCEP}
               value={CEP} 
               onBlur={buscaCEP}
+              style={styles.input}
             />
             </View>
             <Text>Logradouro</Text>
@@ -94,6 +97,7 @@ export default function RegisterScreen({navigation}){
               placeholder="Digite seu Logradouro"
               onChangeText={setLogradouro}
               value={logradouro} 
+              style={styles.input}
             />
              <Button onPress={realizaRegistro}>
                 Registrar

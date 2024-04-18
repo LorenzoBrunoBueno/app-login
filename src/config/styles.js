@@ -10,4 +10,7 @@ export const styles = StyleSheet.create({
         paddingHorizontal: 20,
         alignSelf: "strech",
     },
+    input: {
+        marginBottom: 10,
+      },
 });
