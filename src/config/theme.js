@@ -1,5 +1,8 @@
+
+import { MD3DarkTheme, MD3LightTheme } from "react-native-paper";
 //https://callstack.github.io/react-native-paper/docs/guides/theming/#creating-dynamic-theme-colors
 export const themeLight = {
+  ...MD3LightTheme,
     colors: {
       primary: "rgb(0, 95, 175)",
       onPrimary: "rgb(255, 255, 255)",
@@ -45,8 +48,8 @@ export const themeLight = {
   };
 
   export const themeDark = {
-    
-        "colors": {
+        ...MD3DarkTheme,
+        colors: {
           primary: "rgb(255, 179, 172)",
           onPrimary: "rgb(104, 0, 8)",
           primaryContainer: "rgb(147, 0, 16)",
