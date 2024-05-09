@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Image } from "react-native";
 import { Button, Text, TextInput, Surface } from "react-native-paper";
+import { Animated } from "react-native-web";
 import { styles } from "../config/styles";
 
 
@@ -43,6 +44,7 @@ export default function LoginScreen({ navigation }) {
     <Surface style={styles.container}>
     <View style={styles.container}>
       <View style={styles.innerContainer}>
+        <Animated.View animation="pulse">
         <Text
           variant="headlineMedium"
           style={{
@@ -75,6 +77,7 @@ export default function LoginScreen({ navigation }) {
         <Button onPress={() => navigation.navigate("RegisterScreen")}>
           Faça seu cadastro
         </Button>
+        </Animated.View>
       </View>
     </View>
     </Surface>
