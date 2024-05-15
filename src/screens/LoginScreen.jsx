@@ -1,7 +1,9 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { View, Image } from "react-native";
 import { Button, Text, TextInput, Surface } from "react-native-paper";
 import { Animated } from "react-native-web";
+import { auth } from "../config/firebase";
 import { styles } from "../config/styles";
 
 
@@ -37,6 +39,16 @@ export default function LoginScreen({ navigation }) {
         ...erro,
         senha: false,
       })
+    }
+    realizaLoginNoFirebase();
+  }
+
+  function realizaLoginNoFirebase(){
+    try{
+      const usuarioRef = signInWithEmailAndPassword(auth, email, senha);
+      console.log(usuarioRef)
+    } catch (erro) {
+      console.log(erro);
     }
   }
 
