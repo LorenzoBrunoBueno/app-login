@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Button, Text, Surface } from "react-native-paper";
 import { styles } from "../config/styles";
 
 export default function HomeScreen({ navigation }) {

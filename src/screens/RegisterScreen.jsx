@@ -88,19 +88,26 @@ export default function RegisterScreen({navigation}){
 
         const collectionRef = collection(db, "usuarios");
 
-        const docRef = await setDoc(
+        await setDoc(
           doc(collectionRef,user.uid),
           {
-          nome: nome,
-          cidade: cidade,
-          estado: estado,
-          cep: CEP,
-          logradouro: logradouro,
-        }
+            nome: nome,
+            cidade: cidade,
+            estado: estado,
+            cep: CEP,
+            logradouro: logradouro,
+          }
         );
 
+        navigation.navigate("LoginScreen");
       }catch(error){
-        console.error(error);
+        if (error.code === "auth/email-already-in-use") {
+          setErrorMessage("Email já está cadastrado.");
+
+        }else{
+          setErrorMessage("Error ao cadstrar usuário"+error.message);
+        }
+        showModal();
       }
     }
 

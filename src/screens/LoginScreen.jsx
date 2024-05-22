@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { View, Image } from "react-native";
-import { Button, Text, TextInput, Surface } from "react-native-paper";
+import { Button, Text, TextInput, Surface, Modal, Portal, } from "react-native-paper";
 import { Animated } from "react-native-web";
 import { auth } from "../config/firebase";
 import { styles } from "../config/styles";
@@ -14,6 +14,11 @@ export default function LoginScreen({ navigation }) {
     email: false,
     senha: false,
   });
+  const [visible, setVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
 
   function realizaLogin() {
     console.log("Fazer Login");
@@ -21,7 +26,10 @@ export default function LoginScreen({ navigation }) {
       setErro({
         ...erro,
         email: true,
-      })
+      });
+      setErrorMessage("Eamil é obrigatório");
+      showModal();
+      return;
     } else {
       setErro({
         ...erro,
@@ -33,7 +41,9 @@ export default function LoginScreen({ navigation }) {
       setErro({
         ...erro,
         senha: true,
-      })
+      });
+      setErrorMessage("Email é obrigatório.");
+      showModal();
     } else {
       setErro({
         ...erro,
@@ -46,9 +56,17 @@ export default function LoginScreen({ navigation }) {
   function realizaLoginNoFirebase(){
     try{
       const usuarioRef = signInWithEmailAndPassword(auth, email, senha);
-      console.log(usuarioRef)
+      console.log(usuarioRef);
+      navigation.navigate("HomeScreen");
     } catch (erro) {
-      console.log(erro);
+      if (error.code === "auth/user-not-found") {
+        setErrorMessage("Usuario não encontrado");
+      } else if (error.code === "auth/wrong-password") {
+        setErrorMessage("Senha incorreta");
+      } else {
+        setErrorMessage("Erro ao fazer login: "+error.message);
+      }
+      showModal();
     }
   }
 
